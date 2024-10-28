@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/usr/src/app/build_dc",
+  "command": "/usr/local/bin/c++   -g -std=gnu++17 -o CMakeFiles/mapper_av.dir/average/mapper.cpp.o -c /usr/src/app/average/mapper.cpp",
+  "file": "/usr/src/app/average/mapper.cpp"
+},
+{
+  "directory": "/usr/src/app/build_dc",
+  "command": "/usr/local/bin/c++   -g -std=gnu++17 -o CMakeFiles/mapper_reducer_prg.dir/average/mapper.cpp.o -c /usr/src/app/average/mapper.cpp",
+  "file": "/usr/src/app/average/mapper.cpp"
+}
+]

@@ -1,0 +1,1 @@
+/usr/local/bin/c++ -g CMakeFiles/mapper_av.dir/average/mapper.cpp.o -o bin/mapper_av   -L/usr/src/app/contrib/catboost  -Wl,-rpath,/usr/src/app/contrib/catboost: -lcatboostmodel 

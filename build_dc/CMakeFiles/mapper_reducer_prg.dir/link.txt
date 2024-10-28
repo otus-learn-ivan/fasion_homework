@@ -1,0 +1,2 @@
+/usr/bin/ar qc lib/libmapper_reducer_prg.a CMakeFiles/mapper_reducer_prg.dir/average/mapper.cpp.o
+/usr/bin/ranlib lib/libmapper_reducer_prg.a
