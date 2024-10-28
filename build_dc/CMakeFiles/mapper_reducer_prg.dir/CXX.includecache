@@ -6,3 +6,31 @@
 
 #IncludeRegexTransform: 
 
+/usr/src/app/average/mapper.cpp
+map
+-
+functional
+-
+span
+-
+iostream
+-
+istream
+-
+string
+-
+memory
+-
+sstream
+-
+catboost/c_api.h
+/usr/src/app/average/catboost/c_api.h
+fstream
+-
+sstream
+-
+cstdlib
+-
+span
+-
+

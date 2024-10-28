@@ -38,16 +38,19 @@ private:
 CatboostClassifier::CatboostClassifier(const std::string& modepath)
     : model_{ModelCalcerCreate(), ModelCalcerDelete} {
     // model_ = ModelCalcerCreate();
+    std::cout << "CatboostClassifier " << modepath <<"\n";
     if (!LoadFullModelFromFile(model_.get(), modepath.c_str())) {
         std::stringstream ss;
         ss << "LoadFullModelFromFile error message:" << GetErrorString();
         throw std::runtime_error{ss.str()};
     }
+    std::cout << "CatboostClassifier 1\n";
     if (!SetPredictionType(model_.get(), APT_PROBABILITY)) {
         std::stringstream ss;
         ss << "LoadFullModelFromFile error message:" << GetErrorString();
         throw std::runtime_error{ss.str()};
     }
+    std::cout << "CatboostClassifier 2\n";
 }
 
 std::vector<float> CatboostClassifier::predict_proba(const features_t& features) const {
@@ -88,12 +91,21 @@ std::vector<float> what_is_it( std::string test_data,std::string model_file){
 
     //std::unique_ptr<ModelCalcerHandle, decltype(&ModelCalcerDelete)> model_;
 
-
-    CatboostClassifier predictor{model_file};
-    auto features = CatboostClassifier::features_t{};
-
-    read_features(test_data,features);
-    std::vector<float> ansver = predictor.predict_proba(features);
+    std::cout << "1 what_is_it mod: " << model_file << " siz_str: " <<  test_data.size() <<"\n";
+    std::vector<float> ansver;
+    try {
+        CatboostClassifier predictor{model_file};
+        std::cout << "what_is_it mod 0\n\r";
+        auto features = CatboostClassifier::features_t{};
+         std::cout << "what_is_it mod 1\n\r";
+        read_features(test_data,features);
+        std::cout << "what_is_it mod 2\n\r";
+        ansver = predictor.predict_proba(features);
+    } catch (const std::exception& e) {
+            std::cerr << "Ошибка: " << e.what() << std::endl;
+            throw; // Переброс исключения
+    }
+    std::cout << "what_is_it mod 3\n\r";
     return ansver;
 }
 
@@ -116,15 +128,6 @@ int main(int argc, char ** argv)
         while (std::getline(in, line))
         {
             vk_test.push_back(line);
-
-            // //std::cout << line << std::endl;
-            // std::stringstream ss(line);
-            // std::string t;
-            // char del = ',';
-            // std::vector<int> buf;
-            // while (getline(ss, t, del))
-            //     buf.push_back(atoi(t.c_str()));
-            // vk_test.push_back(buf);
         }
     }
     in.close();  // закрываем файл
@@ -133,7 +136,6 @@ int main(int argc, char ** argv)
     for(auto& elem: vk_test){
         size_t pos = elem.find(',');
         ansver.push_back({elem.substr(0, pos), what_is_it(elem.substr(pos+1),name_file_model)});
-//         ansver.push_back({substr(0, pos), what_is_it(std::span(elem.begin()+1,elem.end()))});
     }
 
     long int true_ansver{};
