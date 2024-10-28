@@ -25,15 +25,16 @@ find_package(Boost COMPONENTS unit_test_framework  thread REQUIRED)
 #add_executable(test_bulk test_bulk.cpp)
 
 add_executable(mapper_av average/mapper.cpp produser_consumer.h mapper_all.h)
-add_executable(mapper_ds dispersion/mapper.cpp produser_consumer.h mapper_all.h)
-add_executable(reducer_av average/reducer.cpp)
-add_executable(reducer_ds dispersion/reducer.cpp)
+#add_executable(mapper_ds dispersion/mapper.cpp produser_consumer.h mapper_all.h)
+#add_executable(reducer_av average/reducer.cpp)
+#add_executable(reducer_ds dispersion/reducer.cpp)
 add_executable(test_average average/test_average.cpp test_str_file.cpp test_str_file.h)
-add_executable(test_dispersion dispersion/test_dispersion.cpp test_str_file.cpp test_str_file.h)
+#add_executable(test_dispersion dispersion/test_dispersion.cpp test_str_file.cpp test_str_file.h)
 
 
 #set_target_properties(bulk_server test_bulk async mapper_av mapper_ds reducer_av reducer_ds test_average test_dispersion PROPERTIES
-set_target_properties( mapper_av mapper_ds reducer_av reducer_ds test_average test_dispersion PROPERTIES
+#set_target_properties( mapper_av mapper_ds reducer_av reducer_ds test_average test_dispersion PROPERTIES
+set_target_properties( mapper_av  test_average PROPERTIES
     CXX_STANDARD 23
     CXX_STANDARD_REQUIRED ON
 )
@@ -44,20 +45,21 @@ set_target_properties( mapper_av mapper_ds reducer_av reducer_ds test_average te
 target_link_libraries(mapper_av
     ${Boost_LIBRARIES}
 )
-target_link_libraries(mapper_ds
-    ${Boost_LIBRARIES}
-)
-target_link_libraries(reducer_av
-    ${Boost_LIBRARIES}
-)
-target_link_libraries(reducer_ds
-    ${Boost_LIBRARIES}
-)
+#target_link_libraries(mapper_ds
+#    ${Boost_LIBRARIES}
+#)
+#target_link_libraries(reducer_av
+#    ${Boost_LIBRARIES}
+#)
+#target_link_libraries(reducer_ds
+#    ${Boost_LIBRARIES}
+#)
 
 
 
 #set_target_properties(test_bulk  test_average test_dispersion PROPERTIES
-set_target_properties(test_average test_dispersion PROPERTIES
+#set_target_properties(test_average test_dispersion PROPERTIES
+set_target_properties(test_average PROPERTIES
     COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
     INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 )
@@ -77,7 +79,7 @@ set_target_properties(test_average test_dispersion PROPERTIES
 #    #bulk_prg
 #)
 target_link_libraries(test_average ${Boost_LIBRARIES} )
-target_link_libraries(test_dispersion ${Boost_LIBRARIES} )
+#target_link_libraries(test_dispersion ${Boost_LIBRARIES} )
 
 if (MSVC)
 #    target_compile_options(bulk_server PRIVATE
@@ -102,21 +104,21 @@ else ()
     target_compile_options(mapper_av PRIVATE
        # -Wall -Wextra -pedantic #-Werror
     )
-    target_compile_options(mapper_ds PRIVATE
-        -Wall -Wextra -pedantic -Werror
-    )
-    target_compile_options(reducer_av PRIVATE
-        -Wall -Wextra -pedantic -Werror
-    )
-    target_compile_options(reducer_ds PRIVATE
-        -Wall -Wextra -pedantic -Werror
-    )
+ #   target_compile_options(mapper_ds PRIVATE
+ #       -Wall -Wextra -pedantic -Werror
+ #   )
+#    target_compile_options(reducer_av PRIVATE
+#        -Wall -Wextra -pedantic -Werror
+#    )
+#    target_compile_options(reducer_ds PRIVATE
+#        -Wall -Wextra -pedantic -Werror
+#    )
     target_compile_options(test_average PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
-    target_compile_options(test_dispersion PRIVATE
-        -Wall -Wextra -pedantic -Werror
-    )
+#    target_compile_options(test_dispersion PRIVATE
+#        -Wall -Wextra -pedantic -Werror
+#    )
 
 endif()
 
@@ -124,9 +126,9 @@ endif()
 
 #install(TARGETS bulk_server RUNTIME DESTINATION bin)
 install(TARGETS mapper_av RUNTIME DESTINATION bin)
-install(TARGETS mapper_ds RUNTIME DESTINATION bin)
-install(TARGETS reducer_av RUNTIME DESTINATION bin)
-install(TARGETS reducer_ds RUNTIME DESTINATION bin)
+#install(TARGETS mapper_ds RUNTIME DESTINATION bin)
+#install(TARGETS reducer_av RUNTIME DESTINATION bin)
+#install(TARGETS reducer_ds RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 
@@ -142,4 +144,4 @@ enable_testing()
 
 #add_test(test_bulk test_bulk)
 add_test(test_average test_average)
-add_test(test_dispersion test_dispersion)
+#add_test(test_dispersion test_dispersion)
